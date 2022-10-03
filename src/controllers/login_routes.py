@@ -32,7 +32,7 @@ def add_usre(common: UserBasicSchema = Depends(UserBasicSchema)):
 
 @user_router.get('/show')
 def show_user(common: UserGetInfoSchema = Depends(UserGetInfoSchema)):
-    """看會員資料"""
+    """查看會員資料"""
     result = LoginHandler.show_user(
         id_=common.id
     )
