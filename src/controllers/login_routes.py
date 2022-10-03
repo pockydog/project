@@ -18,6 +18,7 @@ def user_register(common: UserRegisterSchema = Depends(UserRegisterSchema)):
 
 @user_router.post('/add-info')
 def add_usre(common: UserBasicSchema = Depends(UserBasicSchema)):
+    """新增會員資料"""
     result = LoginHandler.add_user(
         name=common.name,
         account=common.account,
@@ -31,6 +32,7 @@ def add_usre(common: UserBasicSchema = Depends(UserBasicSchema)):
 
 @user_router.get('/show')
 def show_user(common: UserGetInfoSchema = Depends(UserGetInfoSchema)):
+    """看會員資料"""
     result = LoginHandler.show_user(
         id_=common.id
     )
@@ -39,6 +41,7 @@ def show_user(common: UserGetInfoSchema = Depends(UserGetInfoSchema)):
 
 @user_router.post('/login')
 def user_login(common: UserLoginSchema = Depends(UserLoginSchema)):
+    """登入"""
     result = LoginHandler.user_login(
         account=common.account,
         password=common.password,
