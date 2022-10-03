@@ -1,0 +1,60 @@
+version: "3.7"
+
+services:
+  project_fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: project_fastapi
+    image: project_fastapi
+    env_file: dev.env
+    ports:
+      - '8200:8000'
+    tty: true
+    volumes:
+      - ./src:/app:rw
+    networks:
+      - project-network
+
+
+  db:
+    image: postgres:13.2-alpine
+    container_name: project_postgres
+    environment:
+      POSTGRES_DB: project_postgres
+      POSTGRES_USER: fillygaming
+      POSTGRES_PASSWORD: 11111111
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    networks:
+      - project-network
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: project_pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: vickychen@fillygaming888.com
+      PGADMIN_DEFAULT_PASSWORD: 11111111
+      PGADMIN_LISTEN_PORT: 80
+    ports:
+      - "8081:80"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    links:
+      - "db:pgsql-server"
+    networks:
+      - project-network
+
+volumes:
+    db-data:
+    pgadmin-data:
+
+networks:
+  project-network:
+    driver: bridge
+
+
