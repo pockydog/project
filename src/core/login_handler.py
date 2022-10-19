@@ -109,4 +109,4 @@ class LoginHandler:
             }
             return result
         else:
-            raise Exception('Password wrong')
+            raise Exception('Password Wrong')

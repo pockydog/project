@@ -1,35 +1,26 @@
-from typing import Union
+from typing import Union, Optional
+from pydantic import BaseModel, EmailStr
 
 
-class UserBasicSchema:
-    def __init__(self,
-                 account: str,
-                 name: Union[str, None] = None,
-                 phone: Union[str, None] = None,
-                 email: Union[str, None] = None,
-                 contant: Union[str, None] = None,
-                 remark: Union[str, None] = None):
-        self.name = name
-        self.account = account
-        self.phone = phone
-        self.email = email
-        self.contant = contant
-        self.remark = remark
+class UserBasicSchema(BaseModel):
+    account: str
+    name: Union[str, None] = None
+    phone: Union[str, None] = None
+    email: Union[EmailStr, None] = None
+    contant: Union[str, None] = None
+    remark: Union[str, None] = None
 
 
-class UserRegisterSchema:
-    def __init__(self, account: str, password: str):
-        self.account = account
-        self.password = password
+class UserRegisterSchema(BaseModel):
+    account: str
+    password: str
 
 
-class UserGetInfoSchema:
-    def __init__(self, id_: int):
-        self.id = id_
+class UserGetInfoSchema(BaseModel):
+    id: int
 
 
-class UserLoginSchema:
-    def __init__(self, account: str, password: str):
-        self.account = account,
-        self.password = password
+class UserLoginSchema(BaseModel):
+    account: str
+    password: str
 

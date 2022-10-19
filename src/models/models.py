@@ -1,7 +1,8 @@
-from sqlalchemy import Boolean, Column, Integer, String, JSON, MetaData
-from db_setting import Base
+from sqlalchemy import Boolean, Column, Integer, String, JSON
+from sqlalchemy.ext.declarative import declarative_base
 
-metadata = MetaData()
+
+Base = declarative_base()
 
 
 class User(Base):
@@ -16,4 +17,3 @@ class User(Base):
     is_block = Column(Boolean(), default=False, comment='0:啟用, 1:停用')
     contant = Column(JSON(), comment='聯絡方式')
     remark = Column(String(128), comment='備註')
-

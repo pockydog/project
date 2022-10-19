@@ -7,43 +7,44 @@ user_router = APIRouter(prefix='/user')
 
 
 @user_router.post('/register')
-def user_register(common: UserRegisterSchema = Depends(UserRegisterSchema)):
+def user_register(payload: UserRegisterSchema):
     """會員註冊"""
     result = LoginHandler.register(
-        account=common.account,
-        password=common.password,
+        account=payload.account,
+        password=payload.password,
     )
     return result
 
 
 @user_router.post('/add-info')
-def add_usre(common: UserBasicSchema = Depends(UserBasicSchema)):
+def add_usre(payload: UserBasicSchema):
     """新增會員資料"""
     result = LoginHandler.add_user(
-        name=common.name,
-        account=common.account,
-        phone=common.phone,
-        email=common.email,
-        contant=common.contant,
-        remark=common.remark
+        name=payload.name,
+        account=payload.account,
+        phone=payload.phone,
+        email=payload.email,
+        contant=payload.contant,
+        remark=payload.remark
     )
     return result
 
 
 @user_router.get('/show')
-def show_user(common: UserGetInfoSchema = Depends(UserGetInfoSchema)):
+def show_user(user: UserGetInfoSchema = Depends(UserGetInfoSchema)):
     """查看會員資料"""
     result = LoginHandler.show_user(
-        id_=common.id
+        id_=user.id
     )
     return result
 
 
 @user_router.post('/login')
-def user_login(common: UserLoginSchema = Depends(UserLoginSchema)):
+def user_login(payload: UserLoginSchema):
     """登入"""
     result = LoginHandler.user_login(
-        account=common.account,
-        password=common.password,
+        account=payload.account,
+        password=payload.password,
     )
     return result
+
